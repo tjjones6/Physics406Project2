@@ -52,8 +52,12 @@
     }
 
     img {
-        border-radius: 25px;
-    }
+    border-radius: 25px;
+    display: block;               /* Make the image a block-level element */
+    margin-left: auto;            /* Automatically set left margin */
+    margin-right: auto;           /* Automatically set right margin */
+    width: 75%;                   /* Optional: adjust width of the image */
+}
 
     video {
         border-radius: 25px;
@@ -305,8 +309,6 @@
         <div id="surfacePlot" class="plot"></div>
     </div>
 
-    <canvas id="evolutionCanvas" width="500" height="300"></canvas>
-
     <script>
         document.getElementById("runButton").onclick = function() {
             // Get user inputs
@@ -317,16 +319,16 @@
             const dt = parseFloat(document.getElementById("dt").value);
             const dx = (x_max - x_min) / (Nx - 1);
             const initialCondition = document.getElementById("initial_condition").value;
-
+    
             // Stability condition
             const alpha = dt / (dx ** 2);
             if (alpha >= 0.5) {
                 alert("Warning: Stability condition not satisfied (alpha should be < 0.5)");
             }
-
+    
             // Create the x array
             const x = Array.from({length: Nx}, (_, i) => x_min + i * dx);
-
+    
             // Evaluate the initial condition using math.js
             let u;
             try {
@@ -335,11 +337,11 @@
                 alert("Error evaluating initial condition: " + error.message);
                 return;
             }
-
+    
             const Nt = Math.floor(T_FINAL / dt);
             let u_sol = Array.from({length: Nt}, () => new Array(Nx).fill(0));
             u_sol[0] = u;
-
+    
             // Time-stepping loop
             for (let t = 1; t < Nt; t++) {
                 let u_new = [...u];
@@ -352,10 +354,10 @@
                 u = u_new;
                 u_sol[t] = u;
             }
-
+    
             // Create time vector for plotting
             const time = Array.from({length: Nt}, (_, t) => t * dt);
-
+    
             // Create a 2D heatmap
             const heatmapData = [{
                 z: u_sol,
@@ -367,16 +369,16 @@
                     title: 'Temperature',
                 }
             }];
-
+    
             const heatmapLayout = {
                 title: 'Heatmap of Heat Equation Solution',
                 xaxis: {title: 'Space [x]'},
                 yaxis: {title: 'Time [t]'},
                 autosize: true,
             };
-
+    
             Plotly.newPlot('heatmap', heatmapData, heatmapLayout);
-
+    
             // Create a 3D surface plot
             const surfaceData = [{
                 z: u_sol,
@@ -388,7 +390,7 @@
                     title: 'Temperature',
                 }
             }];
-
+    
             const surfaceLayout = {
                 title: '3D Surface Plot of Heat Equation Solution',
                 scene: {
@@ -398,40 +400,15 @@
                 },
                 autosize: true,
             };
-
+    
             Plotly.newPlot('surfacePlot', surfaceData, surfaceLayout);
-
-            // Set up canvas for 2D plot evolution
-            const canvas = document.getElementById('evolutionCanvas');
-            const ctx = canvas.getContext('2d');
-            let currentTime = 0;
-
-            function draw() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-                const index = Math.floor(currentTime / dt);
-                const u_current = u_sol[index] || u_sol[Nt - 1]; // Last frame if index out of bounds
-                const x_scaled = x.map(val => (val - x_min) / (x_max - x_min) * canvas.width);
-                const u_scaled = u_current.map(val => canvas.height - (val * canvas.height / Math.max(...u_current)));
-
-                // Draw the line
-                ctx.beginPath();
-                ctx.moveTo(x_scaled[0], u_scaled[0]);
-                for (let i = 1; i < Nx; i++) {
-                    ctx.lineTo(x_scaled[i], u_scaled[i]);
-                }
-                ctx.strokeStyle = 'blue';
-                ctx.stroke();
-
-                // Update the time
-                currentTime += dt;
-                if (currentTime < T_FINAL) {
-                    requestAnimationFrame(draw);
-                }
-            }
-
-            draw();
         };
     </script>
+    
+
+<!-- Machine Learning Algorithm -->
+<h2 style="text-decoration: underline;"> Machine Learning Solution to 1D Heat Equation</h2>
+<img src="heat_equation_solution.gif" alt="My Animation">
 
 
 
