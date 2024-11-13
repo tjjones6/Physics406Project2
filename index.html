@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Physics 406: Project 2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+</head>
+
+<style>
+  header {
+      background-color: black;
+      color: white;
+      text-align: center;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 200%;
+      width: 100%;
+      padding: 2%;
+      border-radius: 10px;
+    }
+
+    p {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 18px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    body {
+      background-color: #f5f5f5;
+    }
+
+    h2 {
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    img {
+      border-radius: 25px;
+    }
+
+    video {
+      border-radius: 25px;
+    }
+</style>
+
+<header>
+  Physics 406: Project 2
+</header>
+
+<body style="width: 100%; margin-left: 12.5%; margin-right: 12.5%; width: 75%;">
+  <!--
+  <header style="background-color: black;color: white;text-align: center;font-size: 150%;
+  border-top-left-radius: 15px;border-top-right-radius: 15px;">
+  The Double Pendulum Fractal
+  </header>
+  -->
+  <!--<p>Math can be inline like \(2^{2x}=4\), or displayed like:</p>
+  \[2^{3x}=8\]-->
+  <h1 style="text-align: center;"> Applications of Machine Learning in Particle Astrophysics</h1>
+
+        <h2 style="text-decoration: underline;"> Analytic Solution to Heat Equation</h2>
+        <p>
+          The heat equation is given by:
+          $$ 
+            \frac{\partial U(x,t)}{\partial t} = \kappa \frac{\partial^2 U(x,t)}{\partial x^2}
+          $$
+        
+          Suppose the initial and (Dirichlet) boundary conditions are given by:
+          $$ 
+            U(x,0) = \sin(x), \quad U(0,t) = U(L,t) = 0
+          $$
+        
+          We solve this using the method of separation of variables by assuming a solution of the form:
+          $$ 
+            U(x,t) = X(x) T(t)
+          $$
+        
+          Substituting into the heat equation:
+          $$ 
+            X(x) T'(t) = \kappa T(t) X''(x)
+          $$
+        
+          Dividing both sides by \( X(x) T(t) \) gives:
+          $$ 
+          \frac{T'(t)}{\kappa T(t)} = \frac{X''(x)}{X(x)}
+          $$
+        
+          Since the left side has explicit temporal dependence on time [\(t\)], and the right side has explicit spatial dependence on [\( x \)], both must be equal to a constant, say \( -\lambda \):
+          $$ 
+          \frac{T'(t)}{\kappa T(t)} = \frac{X''(x)}{X(x)} = -\lambda
+          $$
+        
+          Solving for \( X(x) \):
+          $$ 
+            X''(x) + \lambda X(x) = 0
+          $$
+        
+          The boundary conditions are \( X(0) = 0 \) and \( X(L) = 0 \). This is a standard Sturm-Liouville problem whose solutions are:
+          $$ 
+            X_n(x) = \sin \left( \frac{n \pi x}{L} \right)
+          $$
+        
+          where \( \lambda_n = \left( \frac{n \pi}{L} \right)^2 \) for \( n = 1, 2, 3, \dots \)
+          $$$$
+        
+          Solving for \( T(t) \):
+          $$ 
+            T'(t) + \kappa T(t) = 0
+          $$
+        
+          Substituting \( \lambda_n \), the solution to the ODE is:
+          $$ 
+            T_n(t) = e^{-\kappa \left( \frac{n \pi}{L} \right)^2 t}
+          $$
+        
+          The general solution is a sum of the solutions for each \( n \):
+          $$ 
+            U(x,t) = \sum_{n=1}^{\infty} A_n \sin \left( \frac{n \pi x}{L} \right) e^{-\kappa \left( \frac{n \pi}{L} \right)^2 t}
+          $$
+        
+          We apply the initial condition \( U(x,0) = \sin(x) \). This gives:
+          $$ 
+            \sum_{n=1}^{\infty} A_n \sin \left( \frac{n \pi x}{L} \right) = \sin(x)
+          $$
+        
+          The initial condition can be satisfied by choosing the coefficient \( A_1 = 1 \) and all other \( A_n = 0 \), since the function \( \sin(x) \) corresponds to the first mode (\( n = 1 \)).
+        
+          Thus, the solution is:
+          $$ 
+          \boxed{
+            U(x,t) = \sin \left( \frac{\pi x}{L} \right) e^{-\kappa \left( \frac{\pi}{L} \right)^2 t}
+          }
+          $$
+        
+        </p>
+
+
+
+
+</body>
+</html>
