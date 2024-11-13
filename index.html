@@ -258,7 +258,9 @@
     </p>
 
     $$
+    \boxed{
     U(x_i, t+\Delta t) = U(x_i, t) + \alpha \left( U(x_{i+1}, t) - 2U(x_i, t) + U(x_{i-1}, t) \right)
+    }
     $$
 
     <p>
@@ -277,10 +279,11 @@
 
     <p>
         With this, we can now compute the temperature distribution over time by iteratively applying the update formula
-        for each spatial point at each time step.
+        for each spatial point at each time step. The following is the numerical result using the derived finite difference 
+        method above:
     </p>
-
-
+    <img src="FDM_Sol.jpg"> 
+    <p></p>
 
     <div>
         <label for="x_min">Left Boundary ( \(x_{min} \)):</label>
@@ -409,6 +412,8 @@
 <!-- Machine Learning Algorithm -->
 <h2 style="text-decoration: underline;"> Machine Learning Solution to 1D Heat Equation</h2>
 <img src="heat_equation_solution.gif" alt="My Animation">
+<img src="MachineLearning3D.png">
+<img src="Comparison.png">
 
 
 
