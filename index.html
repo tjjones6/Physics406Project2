@@ -2,142 +2,439 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Physics 406: Project 2</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    <meta charset="UTF-8">
+    <title>Physics 406: Project 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+        integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+        integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjs/lib/browser/math.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+        integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+        integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 </head>
 
 <style>
-  header {
-      background-color: black;
-      color: white;
-      text-align: center;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 200%;
-      width: 100%;
-      padding: 2%;
-      border-radius: 10px;
+    header {
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 200%;
+        width: 100%;
+        padding: 2%;
+        border-radius: 10px;
     }
 
-    p {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 18px;
-      line-height: 1.5;
-      color: #333;
+    p, li {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+        line-height: 1.5;
+        color: #333;
     }
 
     body {
-      background-color: #f5f5f5;
+        background-color: #f5f5f5;
     }
 
     h2 {
-      font-family: 'Times New Roman', Times, serif;
+        font-family: 'Times New Roman', Times, serif;
     }
 
     img {
-      border-radius: 25px;
+        border-radius: 25px;
     }
 
     video {
-      border-radius: 25px;
+        border-radius: 25px;
     }
+    input {
+            margin: 5px;
+        }
+
+        #plots {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .plot {
+            width: 80%;
+            min-width: 300px;
+        }
+
+        .input-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px;
+        }
+
+        button {
+            background-color: rgb(65, 115, 253);
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        button:hover {
+            background-color: blue;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
 </style>
 
 <header>
-  Physics 406: Project 2
+    Physics 406: Project 2
 </header>
 
 <body style="width: 100%; margin-left: 12.5%; margin-right: 12.5%; width: 75%;">
-  <!--
+    <!--
   <header style="background-color: black;color: white;text-align: center;font-size: 150%;
   border-top-left-radius: 15px;border-top-right-radius: 15px;">
   The Double Pendulum Fractal
   </header>
   -->
-  <!--<p>Math can be inline like \(2^{2x}=4\), or displayed like:</p>
+    <!--<p>Math can be inline like \(2^{2x}=4\), or displayed like:</p>
   \[2^{3x}=8\]-->
-  <h1 style="text-align: center;"> Applications of Machine Learning in Particle Astrophysics</h1>
+    <h1 style="text-align: center;"> Applications of Machine Learning in Particle Astrophysics</h1>
+    <h3 style="text-align: center; margin: 0px;"> Tyler Jones and Jaden Radcliff</h3>
+    <h3 style="text-align: center; margin: 0px;"> University of Wisconsin-Madison</h3>
 
-        <h2 style="text-decoration: underline;"> Analytic Solution to Heat Equation</h2>
-        <p>
-          The heat equation is given by:
-          $$ 
-            \frac{\partial U(x,t)}{\partial t} = \kappa \frac{\partial^2 U(x,t)}{\partial x^2}
-          $$
-        
-          Suppose the initial and (Dirichlet) boundary conditions are given by:
-          $$ 
-            U(x,0) = \sin(x), \quad U(0,t) = U(L,t) = 0
-          $$
-        
-          We solve this using the method of separation of variables by assuming a solution of the form:
-          $$ 
-            U(x,t) = X(x) T(t)
-          $$
-        
-          Substituting into the heat equation:
-          $$ 
-            X(x) T'(t) = \kappa T(t) X''(x)
-          $$
-        
-          Dividing both sides by \( X(x) T(t) \) gives:
-          $$ 
-          \frac{T'(t)}{\kappa T(t)} = \frac{X''(x)}{X(x)}
-          $$
-        
-          Since the left side has explicit temporal dependence on time [\(t\)], and the right side has explicit spatial dependence on [\( x \)], both must be equal to a constant, say \( -\lambda \):
-          $$ 
-          \frac{T'(t)}{\kappa T(t)} = \frac{X''(x)}{X(x)} = -\lambda
-          $$
-        
-          Solving for \( X(x) \):
-          $$ 
-            X''(x) + \lambda X(x) = 0
-          $$
-        
-          The boundary conditions are \( X(0) = 0 \) and \( X(L) = 0 \). This is a standard Sturm-Liouville problem whose solutions are:
-          $$ 
-            X_n(x) = \sin \left( \frac{n \pi x}{L} \right)
-          $$
-        
-          where \( \lambda_n = \left( \frac{n \pi}{L} \right)^2 \) for \( n = 1, 2, 3, \dots \)
-          $$$$
-        
-          Solving for \( T(t) \):
-          $$ 
-            T'(t) + \kappa T(t) = 0
-          $$
-        
-          Substituting \( \lambda_n \), the solution to the ODE is:
-          $$ 
-            T_n(t) = e^{-\kappa \left( \frac{n \pi}{L} \right)^2 t}
-          $$
-        
-          The general solution is a sum of the solutions for each \( n \):
-          $$ 
-            U(x,t) = \sum_{n=1}^{\infty} A_n \sin \left( \frac{n \pi x}{L} \right) e^{-\kappa \left( \frac{n \pi}{L} \right)^2 t}
-          $$
-        
-          We apply the initial condition \( U(x,0) = \sin(x) \). This gives:
-          $$ 
-            \sum_{n=1}^{\infty} A_n \sin \left( \frac{n \pi x}{L} \right) = \sin(x)
-          $$
-        
-          The initial condition can be satisfied by choosing the coefficient \( A_1 = 1 \) and all other \( A_n = 0 \), since the function \( \sin(x) \) corresponds to the first mode (\( n = 1 \)).
-        
-          Thus, the solution is:
-          $$ 
-          \boxed{
-            U(x,t) = \sin \left( \frac{\pi x}{L} \right) e^{-\kappa \left( \frac{\pi}{L} \right)^2 t}
-          }
-          $$
-        
-        </p>
+    <!-- Analytic Solution -->
+    <h2 style="text-decoration: underline;"> Analytic Solution to 1D Heat Equation</h2>
+    <p>
+    <p>
+        The heat equation is a partial differential equation that describes how heat diffuses through a given region
+        over time. The 1D heat equation is given by:
+    </p>
 
+    $$
+    \frac{\partial U(x,t)}{\partial t} = \kappa \frac{\partial^2 U(x,t)}{\partial x^2}
+    $$
+
+    <p>
+        Where:
+    <ul>
+        <li> \( U(x,t) \) is the temperature at position \( x \) and time \( t \),</li>
+        <li> \( \kappa \) is the thermal diffusivity constant.</li>
+    </ul>
+    </p>
+
+    <p>
+    Suppose the initial and (Dirichlet) boundary conditions are given by:
+    $$
+    U(x,0) = \sin(x), \quad U(0,t) = U(L,t) = 0
+    $$
+
+    We solve this using the method of separation of variables by assuming a solution of the form:
+    $$
+    U(x,t) = X(x) T(t)
+    $$
+
+    Substituting into the heat equation:
+    $$
+    X(x) T'(t) = \kappa T(t) X''(x)
+    $$
+
+    Dividing both sides by \( X(x) T(t) \) gives:
+    $$
+    \frac{T'(t)}{\kappa T(t)} = \frac{X''(x)}{X(x)}
+    $$
+
+    Since the left side has explicit temporal dependence on time [\(t\)], and the right side has explicit spatial
+    dependence on [\( x \)], both must be equal to a constant, say \( -\lambda \):
+    $$
+    \frac{T'(t)}{\kappa T(t)} = \frac{X''(x)}{X(x)} = -\lambda
+    $$
+
+    Solving for \( X(x) \):
+    $$
+    X''(x) + \lambda X(x) = 0
+    $$
+
+    The boundary conditions are \( X(0) = 0 \) and \( X(L) = 0 \). This is a standard Sturm-Liouville problem whose
+    solutions are:
+    $$
+    X_n(x) = \sin \left( \frac{n \pi x}{L} \right)
+    $$
+
+    where \( \lambda_n = \left( \frac{n \pi}{L} \right)^2 \) for \( n = 1, 2, 3, \dots \)
+    $$$$
+
+    Solving for \( T(t) \):
+    $$
+    T'(t) + \kappa T(t) = 0
+    $$
+
+    Substituting \( \lambda_n \), the solution to the ODE is:
+    $$
+    T_n(t) = e^{-\kappa \left( \frac{n \pi}{L} \right)^2 t}
+    $$
+
+    The general solution is a sum of the solutions for each \( n \):
+    $$
+    U(x,t) = \sum_{n=1}^{\infty} A_n \sin \left( \frac{n \pi x}{L} \right) e^{-\kappa \left( \frac{n \pi}{L} \right)^2
+    t}
+    $$
+
+    We apply the initial condition \( U(x,0) = \sin(x) \). This gives:
+    $$
+    \sum_{n=1}^{\infty} A_n \sin \left( \frac{n \pi x}{L} \right) = \sin(x)
+    $$
+
+    The initial condition can be satisfied by choosing the coefficient \( A_1 = 1 \) and all other \( A_n = 0 \), since
+    the function \( \sin(x) \) corresponds to the first mode (\( n = 1 \)).
+
+    Thus, the solution is:
+    $$
+    \boxed{
+    U(x,t) = \sin \left( \frac{\pi x}{L} \right) e^{-\kappa \left( \frac{\pi}{L} \right)^2 t}
+    }
+    $$
+    </p>
+
+    <!-- Finite Differences -->
+    <h2 style="text-decoration: underline;"> Finite Difference Solution to 1D Heat Equation</h2>
+
+    <p>
+        To solve this equation numerically, we discretize both space and time. We define the following grid points:
+    </p>
+
+    <ul>
+        <li> Space points: \( x_0, x_1, \dots, x_{Nx-1} \), with step size \( \Delta x \),</li>
+        <li> Time points: \( t_0, t_1, \dots, t_{Nt-1} \), with time step size \( \Delta t \).</li>
+    </ul>
+
+    <p>
+        The finite difference approximation of the spatial derivative is given by the central difference formula:
+    </p>
+
+    $$
+    \frac{\partial^2 U(x,t)}{\partial x^2} \approx \frac{U(x_{i+1}, t) - 2U(x_i, t) + U(x_{i-1}, t)}{(\Delta x)^2}
+    $$
+
+    <p>
+        The time derivative is approximated using the forward difference:
+    </p>
+
+    $$
+    \frac{\partial U(x,t)}{\partial t} \approx \frac{U(x, t+\Delta t) - U(x, t)}{\Delta t}
+    $$
+
+    <p>
+        Substituting these approximations into the heat equation, we obtain the following update rule:
+    </p>
+
+    $$
+    \frac{U(x, t+\Delta t) - U(x, t)}{\Delta t} = \kappa \frac{U(x_{i+1}, t) - 2U(x_i, t) + U(x_{i-1}, t)}{(\Delta x)^2}
+    $$
+
+    <p>
+        Rearranging for \( U(x, t+\Delta t) \), we get the central difference update formula:
+    </p>
+
+    $$
+    U(x_i, t+\Delta t) = U(x_i, t) + \alpha \left( U(x_{i+1}, t) - 2U(x_i, t) + U(x_{i-1}, t) \right)
+    $$
+
+    <p>
+        Where \( \alpha = \frac{\kappa \Delta t}{(\Delta x)^2} \) is the stability parameter that governs the time step
+        and spatial resolution. For stability, we safely choose \( \alpha \leq \frac{1}{2} \).
+    </p>
+
+    <p>
+        The boundary conditions for this problem are Dirichlet boundary conditions, which are specified as:
+    </p>
+
+    <ul>
+        <li> \( U(0, t) = 0 \) (temperature at the left boundary is zero),</li>
+        <li> \( U(L, t) = 0 \) (temperature at the right boundary is zero).</li>
+    </ul>
+
+    <p>
+        With this, we can now compute the temperature distribution over time by iteratively applying the update formula
+        for each spatial point at each time step.
+    </p>
+
+
+
+    <div>
+        <label for="x_min">Left Boundary ( \(x_{min} \)):</label>
+        <input type="number" id="x_min" value="0"><br>
+
+        <label for="x_max">Right Boundary ( \(x_{max} \)):</label>
+        <input type="number" id="x_max" value="3.1415"><br>
+
+        <label for="Nx">Number of Spatial Points ( \(N_x \)):</label>
+        <input type="number" id="Nx" value="100"><br>
+
+        <label for="T_FINAL">Final Time ( \(t_{final} \)):</label>
+        <input type="number" id="T_FINAL" value="3"><br>
+
+        <label for="dt">Time Step (\(dt \)):</label>
+        <input type="number" id="dt" value="0.0001"><br>
+
+        <label for="initial_condition">Initial Data (e.g., \(U(x,0) = x^2 \)):</label>
+        <input type="text" id="initial_condition" value="sin(x)"><br>
+
+        <button id="runButton">Run Simulation</button>
+    </div>
+
+    <div id="plots">
+        <div id="heatmap" class="plot"></div>
+        <div id="surfacePlot" class="plot"></div>
+    </div>
+
+    <canvas id="evolutionCanvas" width="500" height="300"></canvas>
+
+    <script>
+        document.getElementById("runButton").onclick = function() {
+            // Get user inputs
+            const x_min = parseFloat(document.getElementById("x_min").value);
+            const x_max = parseFloat(document.getElementById("x_max").value);
+            const Nx = parseInt(document.getElementById("Nx").value);
+            const T_FINAL = parseFloat(document.getElementById("T_FINAL").value);
+            const dt = parseFloat(document.getElementById("dt").value);
+            const dx = (x_max - x_min) / (Nx - 1);
+            const initialCondition = document.getElementById("initial_condition").value;
+
+            // Stability condition
+            const alpha = dt / (dx ** 2);
+            if (alpha >= 0.5) {
+                alert("Warning: Stability condition not satisfied (alpha should be < 0.5)");
+            }
+
+            // Create the x array
+            const x = Array.from({length: Nx}, (_, i) => x_min + i * dx);
+
+            // Evaluate the initial condition using math.js
+            let u;
+            try {
+                u = x.map(val => math.evaluate(initialCondition, { x: val }));
+            } catch (error) {
+                alert("Error evaluating initial condition: " + error.message);
+                return;
+            }
+
+            const Nt = Math.floor(T_FINAL / dt);
+            let u_sol = Array.from({length: Nt}, () => new Array(Nx).fill(0));
+            u_sol[0] = u;
+
+            // Time-stepping loop
+            for (let t = 1; t < Nt; t++) {
+                let u_new = [...u];
+                for (let i = 1; i < Nx - 1; i++) {
+                    u_new[i] = u[i] + alpha * (u[i - 1] - 2 * u[i] + u[i + 1]);
+                }
+                // Boundary Conditions: Dirichlet u(x,t) = 0 on boundary
+                u_new[0] = 0;
+                u_new[Nx - 1] = 0;
+                u = u_new;
+                u_sol[t] = u;
+            }
+
+            // Create time vector for plotting
+            const time = Array.from({length: Nt}, (_, t) => t * dt);
+
+            // Create a 2D heatmap
+            const heatmapData = [{
+                z: u_sol,
+                x: x,
+                y: time,
+                type: 'heatmap',
+                colorscale: 'YlOrRd',
+                colorbar: {
+                    title: 'Temperature',
+                }
+            }];
+
+            const heatmapLayout = {
+                title: 'Heatmap of Heat Equation Solution',
+                xaxis: {title: 'Space [x]'},
+                yaxis: {title: 'Time [t]'},
+                autosize: true,
+            };
+
+            Plotly.newPlot('heatmap', heatmapData, heatmapLayout);
+
+            // Create a 3D surface plot
+            const surfaceData = [{
+                z: u_sol,
+                x: x,
+                y: time,
+                type: 'surface',
+                colorscale: 'YlOrRd',
+                colorbar: {
+                    title: 'Temperature',
+                }
+            }];
+
+            const surfaceLayout = {
+                title: '3D Surface Plot of Heat Equation Solution',
+                scene: {
+                    xaxis: {title: 'Space [x]'},
+                    yaxis: {title: 'Time [t]'},
+                    zaxis: {title: 'Temperature [u]'},
+                },
+                autosize: true,
+            };
+
+            Plotly.newPlot('surfacePlot', surfaceData, surfaceLayout);
+
+            // Set up canvas for 2D plot evolution
+            const canvas = document.getElementById('evolutionCanvas');
+            const ctx = canvas.getContext('2d');
+            let currentTime = 0;
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+                const index = Math.floor(currentTime / dt);
+                const u_current = u_sol[index] || u_sol[Nt - 1]; // Last frame if index out of bounds
+                const x_scaled = x.map(val => (val - x_min) / (x_max - x_min) * canvas.width);
+                const u_scaled = u_current.map(val => canvas.height - (val * canvas.height / Math.max(...u_current)));
+
+                // Draw the line
+                ctx.beginPath();
+                ctx.moveTo(x_scaled[0], u_scaled[0]);
+                for (let i = 1; i < Nx; i++) {
+                    ctx.lineTo(x_scaled[i], u_scaled[i]);
+                }
+                ctx.strokeStyle = 'blue';
+                ctx.stroke();
+
+                // Update the time
+                currentTime += dt;
+                if (currentTime < T_FINAL) {
+                    requestAnimationFrame(draw);
+                }
+            }
+
+            draw();
+        };
+    </script>
 
 
 
 </body>
+
 </html>
